@@ -19,5 +19,7 @@ public interface EconomyStrategy {
 
     boolean withdraw(UUID uuid, BigDecimal amount);
 
+    void setBalance(UUID uuid, BigDecimal amount);
+
     void onShutdown();
 }
