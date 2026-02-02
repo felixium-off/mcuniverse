@@ -11,6 +11,8 @@ import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import org.mcuniverse.common.GameFeature;
 import org.mcuniverse.common.LampFactory;
+import org.mcuniverse.common.config.ConfigManager;
+import org.mcuniverse.common.database.DatabaseManager;
 import org.mcuniverse.economy.EconomyFeature;
 import org.mcuniverse.essentials.EssentialsFeature;
 import org.mcuniverse.essentials.GameModeExtension;
@@ -18,23 +20,24 @@ import org.mcuniverse.common.listener.ConnectionListener;
 import org.mcuniverse.common.managers.SpawnManager;
 import org.mcuniverse.rank.Rank;
 import org.mcuniverse.rank.RankFeature;
-import org.mcuniverse.rank.commands.RankCommand;
 import revxrsal.commands.Lamp;
 import revxrsal.commands.minestom.actor.MinestomCommandActor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 
     private static final List<GameFeature> features = new ArrayList<>();
 
-    public static void main(String[] args) {
+    static void main() {
         createServer();
     }
 
     private static void createServer() {
+        // 설정 파일 로드
+        ConfigManager.load();
+
         MinecraftServer minecraftServer = MinecraftServer.init();
         
         // 랭크 기능 미리 초기화 (권한 처리를 위해 Service가 필요함)
@@ -82,21 +85,15 @@ public class Main {
 
         // 종료 작업 등록
         MinecraftServer.getSchedulerManager().buildShutdownTask(() -> {
-            System.out.println("모든 시스템 데이터 정리중...");
             for (GameFeature feature : features) {
                 feature.disable(minecraftServer);
             }
+            
+            // DB 연결 종료
+            DatabaseManager.close();
+            System.out.println("서버가 안전하게 종료되었습니다.");
         });
 
         minecraftServer.start("0.0.0.0", 25565);
-
-        // [추가] 인텔리제이 콘솔에서 명령어 입력을 가능하게 하는 스레드
-        new Thread(() -> {
-            Scanner scanner = new Scanner(System.in);
-            while (scanner.hasNextLine()) {
-                String command = scanner.nextLine();
-                MinecraftServer.getCommandManager().execute(MinecraftServer.getCommandManager().getConsoleSender(), command);
-            }
-        }, "Console-Input").start();
     }
 }
