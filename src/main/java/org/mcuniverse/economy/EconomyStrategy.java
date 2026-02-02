@@ -1,6 +1,5 @@
 package org.mcuniverse.economy;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
@@ -8,18 +7,15 @@ import java.util.UUID;
  * 데이터 저장 방식(Memory, DB 등)에 따라 구현체가 달라집니다.
  */
 public interface EconomyStrategy {
-
     boolean hasAccount(UUID uuid);
 
-    void createAccount(UUID uuid, BigDecimal initialBalance);
+    void createAccount(UUID uuid, long initialAmount);
 
-    BigDecimal getBalance(UUID uuid);
+    long getAccount(UUID uuid, EconomyAccount fieldName);
 
-    boolean deposit(UUID uuid, BigDecimal amount);
+    boolean deposit(UUID uuid, EconomyAccount fieldName, long amount);
 
-    boolean withdraw(UUID uuid, BigDecimal amount);
+    boolean withdraw(UUID uuid, EconomyAccount fieldName, long amount);
 
-    void setBalance(UUID uuid, BigDecimal amount);
-
-    void onShutdown();
+    void setAccount(UUID uuid, EconomyAccount fieldName, long amount);
 }
