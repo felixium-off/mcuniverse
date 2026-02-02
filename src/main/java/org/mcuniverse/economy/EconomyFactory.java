@@ -1,22 +1,19 @@
 package org.mcuniverse.economy;
 
-import org.mcuniverse.economy.impl.InMemoryEconomyStrategy;
+import org.mcuniverse.economy.impl.MongoEconomyStrategy;
 
 public class EconomyFactory {
 
     public enum StorageType {
-        MEMORY,
-        MYSQL, // 추후 구현 가능
-        JSON   // 추후 구현 가능
+        JSON,
+        MONGODB // MongoDB 타입 추가
     }
 
     public static EconomyStrategy createStrategy(StorageType type) {
         switch (type) {
-            case MEMORY:
-                return new InMemoryEconomyStrategy();
-            case MYSQL:
-                // return new MySqlEconomyStrategy(...);
-                throw new UnsupportedOperationException("MySQL implementation not yet available");
+            case MONGODB:
+                // DatabaseManager를 통해 연결된 인스턴스를 사용하는 전략 반환
+                return new MongoEconomyStrategy();
             default:
                 throw new IllegalArgumentException("Unknown storage type: " + type);
         }
