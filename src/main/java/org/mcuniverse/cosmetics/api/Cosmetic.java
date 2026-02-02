@@ -1,4 +1,4 @@
-package org.mcuniverse.decorator.api;
+package org.mcuniverse.cosmetics.api;
 
 import net.minestom.server.entity.Player;
 import net.kyori.adventure.text.Component;
