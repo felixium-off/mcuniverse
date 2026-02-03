@@ -8,6 +8,9 @@
 | [[Log_02_Permission_Essentials]] | 2026-02-01 | **Permissions** | Annotation(Lamp), Feature |
 | [[Log_03_Cosmetic_Architecture]] | 2026-02-02 | **Cosmetics** | OCP, Decorator, Registry |
 | [[Log_04_Database_Optimization]] | 2026-02-03 | **Database** | Async, Caching(Redis), Lua Script |
+| [[Log_05_Economy_Schema_Improvement]] | 2026-02-03 | **Eco Schema** | Traceability, Refactoring |
+| [[Log_06_Rank_System_DB]] | 2026-02-03 | **Rank DB** | Redis Hash, Persistence |
+[[Log_07_Cache_Lifecycle_Management]] | 2026-02-03 | **Cache TTL** | BugFix, Keep-Alive Pattern |
 
 ---
 
@@ -16,12 +19,14 @@
 ```mermaid
 graph TD
     DB[Log_04: Database/Redis] -->|Persists| Eco[Log_01: Economy]
+    DB -->|Persists| Rank[Log_06: Rank]
     DB -->|Persists| Cos[Log_03: Cosmetics]
     DB -->|Persists| Perm[Log_02: Permissions]
     
     Eco -->|Requires| Shop[Thinking: Shop System]
     Cos -->|Uses Money| Eco
     
+    Rank -->|Controls| Perm
     Perm -->|Controls| Eco
     Perm -->|Controls| Cos
 ```
