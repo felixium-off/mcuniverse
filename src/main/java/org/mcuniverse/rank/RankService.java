@@ -10,10 +10,14 @@ public class RankService {
         this.strategy = strategy;
     }
 
-    public void createRank(UUID playerUuid) {
+    public void createRank(UUID playerUuid, String name) {
         if (!strategy.hasRank(playerUuid)) {
-            strategy.createRank(playerUuid, Rank.NEWBIE);
+            strategy.createRank(playerUuid, name, Rank.NEWBIE);
         }
+    }
+
+    public void expireRankCache(UUID uuid, long seconds) {
+        strategy.expireRankCache(uuid, seconds);
     }
 
     public Rank getRank(UUID playerUuid) {
@@ -22,9 +26,5 @@ public class RankService {
 
     public void setRank(UUID playerUuid, Rank rank) {
         strategy.setRank(playerUuid, rank);
-    }
-
-    public void shutdown() {
-        strategy.onShutdown();
     }
 }
