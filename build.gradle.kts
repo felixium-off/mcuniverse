@@ -11,16 +11,26 @@ repositories {
 }
 
 dependencies {
+    // Minestom
     implementation("net.minestom:minestom:2025.12.20-1.21.11")
     implementation("org.slf4j:slf4j-simple:2.0.12")
 
+    // MongoDB 및 Redis
     implementation(platform("org.mongodb:mongodb-driver-bom:5.6.2"))
     implementation("org.mongodb:mongodb-driver-sync")
     implementation("io.lettuce:lettuce-core:6.7.1.RELEASE")
+    implementation("org.yaml:snakeyaml:2.2")
 
+    // Lamp
     implementation("io.github.revxrsal:lamp.common:4.0.0-rc.14")
     implementation("io.github.revxrsal:lamp.minestom:4.0.0-rc.14")
+
+    // WorldSeed
     implementation("net.worldseed.multipart:WorldSeedEntityEngine:11.5.6")
+
+    // Micrometer 코어 및 프로메테우스 연동 모듈
+    implementation("io.micrometer:micrometer-core:1.12.0")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.12.0")
 }
 
 configurations.all {
