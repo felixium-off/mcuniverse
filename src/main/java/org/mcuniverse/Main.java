@@ -17,7 +17,6 @@ import org.mcuniverse.economy.EconomyFeature;
 import org.mcuniverse.essentials.EssentialsFeature;
 import org.mcuniverse.essentials.GameModeExtension;
 import org.mcuniverse.common.managers.SpawnManager;
-import org.mcuniverse.rank.Rank;
 import org.mcuniverse.rank.RankFeature;
 import revxrsal.commands.Lamp;
 import revxrsal.commands.minestom.actor.MinestomCommandActor;
@@ -38,7 +37,7 @@ public class Main {
         ConfigManager.load();
 
         MinecraftServer minecraftServer = MinecraftServer.init();
-        
+
         // 랭크 기능 미리 초기화 (권한 처리를 위해 Service가 필요함)
         RankFeature rankFeature = new RankFeature();
         rankFeature.enable(minecraftServer, null); // Service 생성 (Lamp는 null)
@@ -64,7 +63,7 @@ public class Main {
         // --- [ 모듈 등록 및 초기화 ] ---
         features.add(rankFeature);
         features.add(new EconomyFeature());
-        features.add(new org.mcuniverse.shop.ShopFeature()); // Shop 등록
+//        features.add(new org.mcuniverse.shop.ShopFeature()); // Shop 등록
         features.add(new EssentialsFeature());
 
         // Lamp 생성 (Factory 사용)
