@@ -28,6 +28,9 @@ dependencies {
     // WorldSeed
     implementation("net.worldseed.multipart:WorldSeedEntityEngine:11.5.6")
 
+    // dotenv
+    implementation("io.github.cdimascio:dotenv-java:3.2.0")
+
     // Micrometer 코어 및 프로메테우스 연동 모듈
     implementation("io.micrometer:micrometer-core:1.12.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.12.0")
