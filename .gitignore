@@ -74,3 +74,4 @@ desktop.ini
 # 서버 실행 파일이나 설정 파일이 있다면 여기에 추가
 # 예: server.properties, eula.txt 등
 
+.env
