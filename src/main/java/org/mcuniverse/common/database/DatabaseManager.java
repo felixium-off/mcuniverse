@@ -3,6 +3,7 @@ package org.mcuniverse.common.database;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import io.github.cdimascio.dotenv.Dotenv;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
@@ -13,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * MongoDB 및 Redis 연결을 관리하는 싱글톤 매니저입니다.
@@ -24,6 +27,7 @@ public class DatabaseManager {
 
     // DB 작업을 처리할 전용 스레드 풀 (직원 4명 고용)
     private final ExecutorService dbExecutor;
+    private final Dotenv dotenv;
 
     private MongoClient mongoClient;
     private MongoDatabase mongoDatabase;
@@ -31,13 +35,16 @@ public class DatabaseManager {
     private StatefulRedisConnection<String, String> redisConnection;
 
     private DatabaseManager() {
-        // 1. 스레드 풀 생성 (CPU 코어 수 * 2 권장)
         int cores = Runtime.getRuntime().availableProcessors();
         this.dbExecutor = Executors.newFixedThreadPool(Math.max(4, cores * 2));
 
-        // DB 연결 초기화
-        initMongo(ConfigManager.get("mongodb.uri", "mongodb://localhost:27017"), "mcuniverse");
-        initRedis(ConfigManager.get("redis.uri", "redis://localhost:6379"));
+        this.dotenv = Dotenv.configure().ignoreIfMissing().load();
+        String mongoUri = dotenv.get("MONGODB_URI", "mongodb://localhost:27017");
+        String mongoDatabase = dotenv.get("MONGODB_DATABASE", "mcuniverse");
+        String redisUri = dotenv.get("REDIS_URI", "redis://localhost:6379");
+
+        initMongo(mongoUri, mongoDatabase);
+        initRedis(redisUri);
     }
 
     public static synchronized DatabaseManager getInstance() {
@@ -72,6 +79,10 @@ public class DatabaseManager {
     }
 
     public RedisCommands<String, String> getRedisSync() {
+        if (redisConnection == null) {
+            logger.error("❌ Redis 연결이 초기화되지 않았습니다. 요청을 처리할 수 없습니다.");
+            throw new IllegalStateException("Redis Connection is not established.");
+        }
         return redisConnection.sync();
     }
 
