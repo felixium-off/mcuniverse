@@ -75,3 +75,7 @@ desktop.ini
 # 예: server.properties, eula.txt 등
 
 .env
+
+# 개발 노트 및 에이전트 파일 (dev remote 전용)
+dev/
+.agent/
