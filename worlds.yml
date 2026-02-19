@@ -1,0 +1,6 @@
+autoload:
+- name: lobby
+  type: anvil
+  spawn: {x: -138.29084761673278, y: -43.0, z: -113.2176907392746, yaw: 179.25003,
+    pitch: 0.149982}
+default_spawn_world: lobby
