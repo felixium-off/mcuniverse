@@ -47,16 +47,9 @@ public class RedisConnect {
             throw new IllegalStateException("[REDIS] 이미 연결되어 있습니다!");
 
         Dotenv env = Dotenv.load();
-        String redisHost = env.get("REDIS_HOST");
-        int redisPort = Integer.parseInt(env.get("REDIS_PORT"));
-        String redisPwd = env.get("REDIS_PASSWORD");
+        String redisUri = env.get("REDIS_URI");
 
-        RedisURI uri = RedisURI.builder()
-                .withHost(redisHost)
-                .withPort(redisPort)
-                .withPassword(redisPwd)
-                .withTimeout(Duration.ofSeconds(5))
-                .build();
+        RedisURI uri = RedisURI.create(redisUri);
 
         client = RedisClient.create(uri);
         connection = client.connect();
