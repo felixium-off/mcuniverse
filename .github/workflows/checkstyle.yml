@@ -1,0 +1,38 @@
+name: Checkstyle
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'src/**/*.java'
+      - 'config/checkstyle/**'
+
+jobs:
+  checkstyle:
+    name: Code Style Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '25-ea'
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Checkstyle
+        run: ./gradlew checkstyleMain --no-daemon
+
+      - name: Upload Checkstyle report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle-report
+          path: build/reports/checkstyle/
+          retention-days: 7

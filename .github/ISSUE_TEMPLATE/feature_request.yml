@@ -1,0 +1,57 @@
+name: ✨ 기능 요청
+description: 새로운 기능이나 개선 사항을 제안해 주세요
+title: "[Feature] "
+labels: ["enhancement"]
+assignees:
+  - gclogs
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        아이디어를 공유해 주셔서 감사합니다! 최대한 구체적으로 작성해 주시면 큰 도움이 됩니다.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 해결하려는 문제
+      description: 기능 요청과 관련된 문제나 불편함을 설명해 주세요.
+      placeholder: "현재 ~ 기능이 없어서 ~ 할 때 불편합니다."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 제안하는 해결책
+      description: 어떻게 해결하면 좋을지 설명해 주세요.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 카테고리
+      description: 이 기능은 어떤 시스템과 관련이 있나요?
+      options:
+        - 월드 / 맵
+        - 경제 / 상점
+        - 코스메틱
+        - 명령어
+        - 데이터베이스 / 저장
+        - 성능
+        - 기타
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 고려한 대안
+      description: 다른 해결 방법을 고려해 보셨나요?
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 추가 정보
+      description: 스크린샷, 참고 자료, 관련 이슈 등 추가 정보를 작성해 주세요.
