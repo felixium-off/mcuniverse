@@ -1,3 +1,10 @@
+### Custom
+.env
+.env.local
+.env.docker
+target/
+dist/
+
 # Gradle
 .gradle/
 build/
