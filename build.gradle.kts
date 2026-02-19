@@ -4,7 +4,7 @@ plugins {
     checkstyle
 }
 
-group = "org.example"
+group = "space.felixium"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -29,13 +29,13 @@ dependencies {
 
     // Polar world format
     implementation("dev.hollowcube:polar:1.15.0")
-    
+
     // fastutil (Polar 의존성)
     implementation("it.unimi.dsi:fastutil:8.5.15")
-    
+
     // Zstd compression
     implementation("com.github.luben:zstd-jni:1.5.7-7")
-    
+
     // Gson for JSON parsing
     implementation("com.google.code.gson:gson:2.10.1")
 
@@ -70,11 +70,20 @@ application {
     mainClass.set("org.mcuniverse.Main")
 }
 
+//
+// Q. T. Felix - start
+//
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(25))
     }
+    // Q. T. Felix NOTE: 버전 호환성 강화
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
+//
+// Q. T. Felix - end
+//
 
 checkstyle {
     toolVersion = "10.21.4"
