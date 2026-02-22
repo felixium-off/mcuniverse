@@ -19,7 +19,16 @@ dependencies {
 
     // Minestom
     implementation("net.minestom:minestom:2025.12.20-1.21.11")
-    implementation("org.slf4j:slf4j-simple:2.0.12")
+
+    // Kyori adventure
+    implementation("net.kyori:adventure-text-minimessage:4.26.1")
+
+    // Logging
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:2.0.17")
+    // Logging Provider (Logback)
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation("ch.qos.logback:logback-classic:1.5.26")
 
     // MongoDB 및 Redis
     implementation(platform("org.mongodb:mongodb-driver-bom:5.6.2"))
