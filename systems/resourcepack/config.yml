@@ -1,0 +1,5 @@
+resourcepack:
+  url: "https://www.dropbox.com/scl/fi/qpc3gs1elvre2jjcmjk02/BetterHangulFont.zip?rlkey=yvppsoyr7i3bymd6ttn26cwg7&st=x5ujyxbp&dl=1"
+  hash: ""        # SHA-1 해시 (선택, 빈 문자열이면 무시)
+  forced: true    # true: 거부 시 킥, false: 선택 허용
+  prompt: "서버 리소스팩을 적용해주세요."
