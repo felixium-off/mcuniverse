@@ -12,18 +12,15 @@ import revxrsal.commands.minestom.actor.MinestomCommandActor;
 
 public class LampFactory {
 
-    @SuppressWarnings("unchecked")
     public static Lamp<MinestomCommandActor> create(RankService rankService, LampExtension... extensions) {
         var builder = MinestomLamp.builder();
 
         builder.permissionFactory(new RankPermissionFactory(rankService));
-        builder.parameterTypes(params -> {
-            params.addParameterType(RankGroup.class, new RankParameterType());
-        });
+        builder.parameterTypes(params ->
+                params.addParameterType(RankGroup.class, new RankParameterType()));
 
-        builder.parameterTypes(params -> {
-            params.addParameterType(Currency.class, new CurrencyParameterType());
-        });
+        builder.parameterTypes(params ->
+                params.addParameterType(Currency.class, new CurrencyParameterType()));
 
         for (LampExtension extension : extensions) {
             extension.register(builder);
