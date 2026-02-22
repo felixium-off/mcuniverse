@@ -1,16 +1,12 @@
 package org.mcuniverse.core.database.redis;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.cdimascio.dotenv.Dotenv;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.sync.RedisCommands;
-
-import java.time.Duration;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Redis 연결을 관리하는 싱글턴 클래스 (Lettuce 기반).
@@ -26,9 +22,9 @@ import java.time.Duration;
  * RedisConnect.getInstance().sync().get("key");
  * }</pre>
  */
+@Slf4j
 public class RedisConnect {
 
-    private static final Logger log = LoggerFactory.getLogger(RedisConnect.class);
     private static final RedisConnect INSTANCE = new RedisConnect();
 
     private RedisClient client;
@@ -70,20 +66,26 @@ public class RedisConnect {
         log.info("[REDIS] disconnected.");
     }
 
-    /**
-     * 비동기 커맨드를 반환합니다. 게임 서버에서는 이걸 우선 사용하세요.
-     *
-     * @throws IllegalStateException connect() 호출 전 접근 시
-     */
+    /// 비동기 커맨드를 반환합니다. 게임 서버에서는 이걸 우선 사용하세요.
+    ///
+    /// # Safety
+    /// 주의하세요! 이 메소드는 비동기 [RedisAsyncCommands] 인터페이스를
+    /// 직접 전달합니다. 이 경우, 호출자는 `try-with-resources` 블럭을 사용하여
+    /// 이 자원을 처리해얗 합니다.
+    ///
+    /// @throws IllegalStateException connect() 호출 전 접근 시
     public RedisAsyncCommands<String, String> async() {
         return requireConnection().async();
     }
 
-    /**
-     * 동기 커맨드를 반환합니다. 메인 스레드 블로킹 주의.
-     *
-     * @throws IllegalStateException connect() 호출 전 접근 시
-     */
+    /// 동기 커맨드를 반환합니다. 메인 스레드 블로킹 주의.
+    ///
+    /// # Safety
+    /// 주의하세요! 이 메소드는 비동기 [RedisAsyncCommands] 인터페이스를
+    /// 직접 전달합니다. 이 경우, 호출자는 `try-with-resources` 블럭을 사용하여
+    /// 이 자원을 처리해얗 합니다.
+    ///
+    /// @throws IllegalStateException connect() 호출 전 접근 시
     public RedisCommands<String, String> sync() {
         return requireConnection().sync();
     }

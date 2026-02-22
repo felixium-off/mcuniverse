@@ -3,8 +3,6 @@ package org.mcuniverse.core.security;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.minestom.server.entity.Player;
-
 public class PingRateLimiter {
 
     private final ConcurrentHashMap<String, AtomicInteger> pingMap = new ConcurrentHashMap<>();

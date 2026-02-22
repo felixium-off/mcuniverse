@@ -1,12 +1,14 @@
 package org.mcuniverse.systems.resourcepack;
 
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-
+import lombok.Getter;
 import net.kyori.adventure.resource.ResourcePackInfo;
 import net.kyori.adventure.resource.ResourcePackRequest;
 import net.kyori.adventure.text.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
+@Getter
 public class ResourcepackService {
 
     private final ResourcePackRequest request;
@@ -19,9 +21,5 @@ public class ResourcepackService {
 
         this.request = ResourcePackRequest.resourcePackRequest().packs(info).prompt(Component.text(config.getPrompt()))
                 .required(config.isForced()).build();
-    }
-
-    public ResourcePackRequest getRequest() {
-        return request;
     }
 }

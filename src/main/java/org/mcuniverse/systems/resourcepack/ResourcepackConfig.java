@@ -1,14 +1,14 @@
 package org.mcuniverse.systems.resourcepack;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Map;
-
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Map;
 
 public class ResourcepackConfig {
 
@@ -23,7 +23,7 @@ public class ResourcepackConfig {
         Yaml yaml = new Yaml();
         try (InputStream input = new FileInputStream("systems/resourcepack/config.yml")) {
             Map<String, Object> data = yaml.load(input);
-            Map<String, Object> rp = (Map<String, Object>) data.get("resourcepack");
+            @SuppressWarnings("unchecked") Map<String, Object> rp = (Map<String, Object>) data.get("resourcepack");
 
             this.uri = URI.create((String) rp.get("url"));
             this.hash = (String) rp.get("hash");
