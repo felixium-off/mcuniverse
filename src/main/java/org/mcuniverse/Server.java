@@ -2,8 +2,11 @@ package org.mcuniverse;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.network.packet.server.common.PingPacket;
+
 import org.mcuniverse.core.database.mongo.MongoConnect;
 import org.mcuniverse.core.database.redis.RedisConnect;
+import org.mcuniverse.scripts.event.PingProtectEvent;
 import org.mcuniverse.scripts.event.PlayerJoinEvent;
 import org.mcuniverse.systems.resourcepack.ResourcepackConfig;
 import org.mcuniverse.systems.resourcepack.ResourcepackService;
@@ -49,6 +52,7 @@ public final class Server {
     public void registerEvents() {
         GlobalEventHandler gh = MinecraftServer.getGlobalEventHandler();
         new PlayerJoinEvent(this.worldService, this.resourcepackService).register(gh);
+        new PingProtectEvent().register(gh);
     }
 
     public void registerShutdownHook() {
