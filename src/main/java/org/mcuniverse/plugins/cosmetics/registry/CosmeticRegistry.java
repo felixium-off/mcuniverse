@@ -1,7 +1,8 @@
 package org.mcuniverse.plugins.cosmetics.registry;
 
-import org.mcuniverse.plugins.cosmetics.api.Cosmetic;
 import org.jetbrains.annotations.Nullable;
+import org.mcuniverse.plugins.cosmetics.api.Cosmetic;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

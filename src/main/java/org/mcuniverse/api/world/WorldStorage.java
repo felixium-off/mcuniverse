@@ -1,7 +1,7 @@
 package org.mcuniverse.api.world;
 
-import org.mcuniverse.api.world.exception.WorldStorageException;
 import org.jetbrains.annotations.NotNull;
+import org.mcuniverse.api.world.exception.WorldStorageException;
 
 /**
  * Interface for storing and retrieving world data.

@@ -1,5 +1,7 @@
 package org.mcuniverse.plugins.common.managers;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.InstanceContainer;
@@ -9,22 +11,27 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SpawnManager {
+    @Getter
     private static InstanceContainer spawnInstance;
     private static Pos spawnPosition;
     
     // Global spawn registry (world name -> spawn position)
     private static final Map<String, Pos> spawnRegistry = new ConcurrentHashMap<>();
+    /**
+     * -- GETTER --
+     *  Get default spawn world name
+     * -- SETTER --
+     *  Set default spawn world name
+     */
+    @Setter
+    @Getter
     private static String defaultSpawnWorld = "world";
     
     public static void setSpawn(InstanceContainer instance, Pos position) {
         spawnInstance = instance;
         spawnPosition = position;
     }
-    
-    public static InstanceContainer getSpawnInstance() {
-        return spawnInstance;
-    }
-    
+
     public static Pos getSpawnPosition() {
         return spawnPosition != null ? spawnPosition : new Pos(0, 2, 0);
     }
@@ -69,18 +76,5 @@ public class SpawnManager {
             }
         });
     }
-    
-    /**
-     * Get default spawn world name
-     */
-    public static String getDefaultSpawnWorld() {
-        return defaultSpawnWorld;
-    }
-    
-    /**
-     * Set default spawn world name
-     */
-    public static void setDefaultSpawnWorld(String worldName) {
-        defaultSpawnWorld = worldName;
-    }
+
 }

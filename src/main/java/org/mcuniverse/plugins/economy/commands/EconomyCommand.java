@@ -4,7 +4,10 @@ import net.minestom.server.entity.Player;
 import net.minestom.server.utils.entity.EntityFinder;
 import org.mcuniverse.plugins.economy.Currency;
 import org.mcuniverse.plugins.economy.EconomyService;
-import revxrsal.commands.annotation.*;
+import revxrsal.commands.annotation.Command;
+import revxrsal.commands.annotation.Description;
+import revxrsal.commands.annotation.Named;
+import revxrsal.commands.annotation.Subcommand;
 
 import java.util.concurrent.CompletableFuture;
 

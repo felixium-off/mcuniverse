@@ -1,29 +1,31 @@
 package org.mcuniverse.systems.resourcepack;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
-
+@Slf4j
 public class ResourcepackConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(ResourcepackConfig.class);
-
     private URI uri;
+    @Getter
     private String hash;
+    @Getter
     private boolean forced;
+    @Getter
     private String prompt;
 
     public ResourcepackConfig() {
         Yaml yaml = new Yaml();
         try (InputStream input = new FileInputStream("systems/resourcepack/config.yml")) {
             Map<String, Object> data = yaml.load(input);
-            Map<String, Object> rp = (Map<String, Object>) data.get("resourcepack");
+            @SuppressWarnings("unchecked") Map<String, Object> rp = (Map<String, Object>) data.get("resourcepack");
 
             this.uri = URI.create((String) rp.get("url"));
             this.hash = (String) rp.get("hash");
@@ -38,17 +40,5 @@ public class ResourcepackConfig {
 
     public @NotNull URI getUrl() {
         return uri;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public boolean isForced() {
-        return forced;
-    }
-
-    public String getPrompt() {
-        return prompt;
     }
 }

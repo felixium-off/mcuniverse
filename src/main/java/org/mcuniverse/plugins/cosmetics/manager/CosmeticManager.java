@@ -1,12 +1,12 @@
 package org.mcuniverse.plugins.cosmetics.manager;
 
 import net.minestom.server.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.mcuniverse.plugins.cosmetics.api.Cosmetic;
 import org.mcuniverse.plugins.cosmetics.api.CosmeticType;
 import org.mcuniverse.plugins.cosmetics.registry.CosmeticRegistry;
 import org.mcuniverse.plugins.cosmetics.storage.CosmeticRepository;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Map;

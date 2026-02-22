@@ -1,7 +1,7 @@
 package org.mcuniverse.plugins.cosmetics.api;
 
-import net.minestom.server.entity.Player;
 import net.kyori.adventure.text.Component;
+import net.minestom.server.entity.Player;
 
 public interface Cosmetic {
     String getId();             // 고유 ID (예: "title_admin", "trail_fire")

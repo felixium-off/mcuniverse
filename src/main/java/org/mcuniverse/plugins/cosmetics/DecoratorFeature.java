@@ -10,8 +10,8 @@ import org.mcuniverse.plugins.cosmetics.listener.CosmeticListener;
 import org.mcuniverse.plugins.cosmetics.manager.CosmeticManager;
 import org.mcuniverse.plugins.cosmetics.registry.CosmeticRegistry;
 import org.mcuniverse.plugins.cosmetics.storage.CosmeticRepository;
-import org.mcuniverse.plugins.cosmetics.storage.MongoCosmeticRepository;
 import org.mcuniverse.plugins.cosmetics.storage.JsonCosmeticRepository;
+import org.mcuniverse.plugins.cosmetics.storage.MongoCosmeticRepository;
 import revxrsal.commands.Lamp;
 import revxrsal.commands.minestom.actor.MinestomCommandActor;
 

@@ -1,16 +1,13 @@
 package org.mcuniverse.core.database.redis;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.cdimascio.dotenv.Dotenv;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.sync.RedisCommands;
-
-import java.time.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Redis 연결을 관리하는 싱글턴 클래스 (Lettuce 기반).

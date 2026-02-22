@@ -2,7 +2,6 @@ package org.mcuniverse.plugins.economy.impl;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-
 import io.lettuce.core.ScriptOutputType;
 import org.bson.Document;
 import org.mcuniverse.plugins.common.database.AbstractMongoRedisStrategy;

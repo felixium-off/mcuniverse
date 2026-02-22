@@ -1,6 +1,12 @@
 package org.mcuniverse.plugins.cosmetics.api;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum CosmeticType {
+
     TITLE("칭호"),
     DISPLAY_TAG("훈장"),
     COLOR_CHAT("채팅 색상"),
@@ -12,12 +18,4 @@ public enum CosmeticType {
     WARDROBE_BALLOON("풍선");
 
     private final String displayName;
-
-    CosmeticType(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
 }

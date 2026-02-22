@@ -13,7 +13,9 @@ import org.mcuniverse.api.instance.exception.InstanceLoadException;
 import org.mcuniverse.api.instance.exception.InstanceNotFoundException;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

@@ -6,18 +6,17 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
+import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.instance.InstanceContainer;
-import org.mcuniverse.systems.world.WorldService;
-
-import net.minestom.server.event.GlobalEventHandler;
 import org.mcuniverse.systems.resourcepack.ResourcepackService;
+import org.mcuniverse.systems.world.WorldService;
 
 public class PlayerJoinEvent {
 
-    private WorldService worldService;
-    private ResourcepackService resourcepackService;
+    private final WorldService worldService;
+    private final ResourcepackService resourcepackService;
 
     public PlayerJoinEvent(WorldService worldService, ResourcepackService resourcepackService) {
         this.worldService = worldService;
@@ -40,7 +39,7 @@ public class PlayerJoinEvent {
     }
 
     private void onResourcePack(Player player) {
-        ResourcePackRequest request = resourcepackService.getRequest().callback(((uuid, status, audience) ->  {
+        ResourcePackRequest request = resourcepackService.getRequest().callback(((_, status, _) ->  {
             if (status == ResourcePackStatus.SUCCESSFULLY_LOADED) {
                 player.sendMessage(Component.text("✅ 리소스팩 로딩 완료!", NamedTextColor.GREEN));
             } else if (status == ResourcePackStatus.FAILED_DOWNLOAD || status == ResourcePackStatus.DECLINED) {

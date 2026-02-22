@@ -9,7 +9,10 @@ import org.mcuniverse.plugins.common.managers.SpawnManager;
 import org.mcuniverse.plugins.rank.permission.RequiresRank;
 import org.mcuniverse.plugins.world.AnvilWorldImporter;
 import org.mcuniverse.plugins.world.WorldRegistry;
-import revxrsal.commands.annotation.*;
+import revxrsal.commands.annotation.Command;
+import revxrsal.commands.annotation.Description;
+import revxrsal.commands.annotation.Named;
+import revxrsal.commands.annotation.Subcommand;
 import revxrsal.commands.minestom.actor.MinestomCommandActor;
 
 /**

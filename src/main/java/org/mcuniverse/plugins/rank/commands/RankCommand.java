@@ -1,13 +1,13 @@
 package org.mcuniverse.plugins.rank.commands;
 
+import net.minestom.server.entity.Player;
+import net.minestom.server.utils.entity.EntityFinder;
 import org.mcuniverse.plugins.rank.RankGroup;
+import org.mcuniverse.plugins.rank.RankService;
 import org.mcuniverse.plugins.rank.permission.RequiresRank;
 import revxrsal.commands.annotation.Command;
 import revxrsal.commands.annotation.Named;
 import revxrsal.commands.annotation.Subcommand;
-import net.minestom.server.entity.Player;
-import net.minestom.server.utils.entity.EntityFinder;
-import org.mcuniverse.plugins.rank.RankService;
 
 public class RankCommand {
 
