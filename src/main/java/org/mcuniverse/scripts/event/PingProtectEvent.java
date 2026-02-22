@@ -1,10 +1,10 @@
 package org.mcuniverse.scripts.event;
 
-import org.mcuniverse.core.security.PingRateLimiter;
-
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.server.ClientPingServerEvent;
 import net.minestom.server.event.server.ServerListPingEvent;
+import net.minestom.server.network.player.PlayerConnection;
+import org.mcuniverse.core.security.PingRateLimiter;
 
 import java.net.InetSocketAddress;
 

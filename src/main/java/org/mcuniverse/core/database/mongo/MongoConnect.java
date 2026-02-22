@@ -6,8 +6,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import io.github.cdimascio.dotenv.Dotenv;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,9 +17,9 @@ import java.util.concurrent.TimeUnit;
  *
  * <pre>{@code MongoDatabase db = MongoConnect.getInstance().getDatabase(); }</pre>
  */
+@Slf4j
 public class MongoConnect {
 
-    private static final Logger log = LoggerFactory.getLogger(MongoConnect.class);
     private static final MongoConnect INSTANCE = new MongoConnect();
 
     private MongoClient client;
@@ -38,7 +37,7 @@ public class MongoConnect {
         if (client != null)
             throw new IllegalStateException("[MONGODB] 이미 연결되어 있습니다!");
 
-        Dotenv env = Dotenv.load();
+        Dotenv env = Dotenv.load(); // Q. T. Felix NOTE: dotenv 의존성은 제거하는 편이 좋아 봉비니다. System.getenv()로 해도 될 듯해용
 
         String uri = env.get("MONGODB_URI");
         String dbName = env.get("MONGODB_NAME");

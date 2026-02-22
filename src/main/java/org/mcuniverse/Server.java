@@ -1,9 +1,8 @@
 package org.mcuniverse;
 
+import lombok.extern.slf4j.Slf4j;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.network.packet.server.common.PingPacket;
-
 import org.mcuniverse.core.database.mongo.MongoConnect;
 import org.mcuniverse.core.database.redis.RedisConnect;
 import org.mcuniverse.scripts.event.PingProtectEvent;
@@ -12,6 +11,7 @@ import org.mcuniverse.systems.resourcepack.ResourcepackConfig;
 import org.mcuniverse.systems.resourcepack.ResourcepackService;
 import org.mcuniverse.systems.world.WorldService;
 
+@Slf4j
 public final class Server {
 
     private static MinecraftServer minecraftServer;
@@ -26,12 +26,12 @@ public final class Server {
         this.registerCommands();
         this.registerEvents();
         this.registerShutdownHook();
-        this.minecraftServer.start("0.0.0.0", 25565);
+        minecraftServer.start("0.0.0.0", 25565);
     }
 
     public void initMinestorm() {
-        this.minecraftServer = MinecraftServer.init();
-        this.minecraftServer.LOGGER.info("서버가 안전하게 열렸습니다.");
+        minecraftServer = MinecraftServer.init();
+        log.info("서버가 안전하게 열렸습니다.");
     }
 
     public void initServices() {
@@ -60,7 +60,7 @@ public final class Server {
 
             MongoConnect.getInstance().disconnect();
             RedisConnect.getInstance().disconnect();
-            this.minecraftServer.LOGGER.debug("서버가 안전하게 종료되었습니다.");
+            log.debug("서버가 안전하게 종료되었습니다.");
         });
     }
 }
