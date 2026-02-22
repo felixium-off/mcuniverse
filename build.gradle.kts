@@ -40,11 +40,21 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     // Lamp
-    implementation("io.github.revxrsal:lamp.common:4.0.0-rc.14")
-    implementation("io.github.revxrsal:lamp.minestom:4.0.0-rc.14")
+    implementation("net.kyori:adventure-text-minimessage:4.26.1")
+
+    // Logging
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:2.0.17")
+    // Logging Provider (Logback)
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation("ch.qos.logback:logback-classic:1.5.26")
 
     // WorldSeed
     implementation("net.worldseed.multipart:WorldSeedEntityEngine:11.5.6")
+
+    // Caffeeine cache
+    // https://github.com/ben-manes/caffeine
+    implementation("com.github.ben-manes.caffeine:caffeine:3.2.3")
 
     // dotenv
     implementation("io.github.cdimascio:dotenv-java:3.2.0")
