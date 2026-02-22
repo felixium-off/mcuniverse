@@ -1,15 +1,17 @@
 package org.mcuniverse.plugins.rank;
 
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import revxrsal.commands.autocomplete.SuggestionProvider;
 import revxrsal.commands.minestom.actor.MinestomCommandActor;
 import revxrsal.commands.node.ExecutionContext;
 import revxrsal.commands.parameter.ParameterType;
 import revxrsal.commands.stream.MutableStringStream;
 
-public class RankParameterType implements ParameterType {
+public class RankParameterType implements ParameterType<MinestomCommandActor, RankGroup> {
+
     @Override
-    public Object parse(@NotNull MutableStringStream input, @NotNull ExecutionContext context) {
+    public RankGroup parse(@NotNull MutableStringStream input, @NotNull ExecutionContext context) {
         String rankId = input.readString();
 
         if (RankGroup.REGISTRY.containsKey(rankId)) return RankGroup.REGISTRY.get(rankId);
@@ -18,7 +20,7 @@ public class RankParameterType implements ParameterType {
     }
 
     @Override
-    public SuggestionProvider<MinestomCommandActor> defaultSuggestions() {
+    public @NonNull SuggestionProvider<MinestomCommandActor> defaultSuggestions() {
         return SuggestionProvider.of(RankGroup.REGISTRY.keySet().toArray(new String[0]));
     }
 }
