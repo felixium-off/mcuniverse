@@ -3,6 +3,7 @@ package org.mcuniverse.systems.world;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
+import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class WorldService {
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
 
+        instanceContainer.setChunkSupplier(LightingChunk::new);
         instanceContainer.setGenerator(unit -> unit.modifier().fillHeight(0, 40, Block.GRASS_BLOCK));
         instances.put(name, instanceContainer);
 
