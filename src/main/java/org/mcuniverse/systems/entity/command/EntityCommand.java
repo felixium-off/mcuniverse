@@ -6,16 +6,13 @@ import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
 import org.mcuniverse.systems.entity.mob.MobService;
-import org.mcuniverse.systems.entity.model.CustomMob;
+import org.mcuniverse.systems.entity.model.BaseMob;
 import org.mcuniverse.Server;
 
 public class EntityCommand extends Command {
 
-    private final MobService mobService;
-
     public EntityCommand(MobService mobService) {
         super("mob", "mm");
-        this.mobService = mobService;
 
         var spawnArg = ArgumentType.Literal("spawn");
         var listArg = ArgumentType.Literal("list");
@@ -32,7 +29,7 @@ public class EntityCommand extends Command {
                 Pos currentPos = player.getPosition();
                 Pos spawnPos = currentPos.add(currentPos.direction().mul(2));
 
-                CustomMob mob = mobService.spawnMob(id, player.getInstance(), spawnPos);
+                BaseMob mob = mobService.spawnMob(id, player.getInstance(), spawnPos);
                 if (mob != null) {
                     player.sendMessage("✅ 몹이 소환되었습니다: " + id);
                 } else {
