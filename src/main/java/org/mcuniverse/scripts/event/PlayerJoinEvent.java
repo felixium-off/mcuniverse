@@ -23,23 +23,28 @@ public class PlayerJoinEvent {
         this.resourcepackService = resourcepackService;
     }
 
-    public void register(GlobalEventHandler globalEventHandler) {
-        globalEventHandler.addListener(AsyncPlayerConfigurationEvent.class, event -> {
-            InstanceContainer instanceContainer = worldService.createWorld("lobby");
-            event.setSpawningInstance(instanceContainer);
-            event.getPlayer().setRespawnPoint(new Pos(0, 42, 0));
-        });
-
-        globalEventHandler.addListener(PlayerSpawnEvent.class, event -> {
-            Player player = event.getPlayer();
-            player.sendMessage(Component.text("마인크래프트 유니버스에 오신 것을 환영합니다!", NamedTextColor.AQUA));
-
-            onResourcePack(player);
-        });
+    public void register(GlobalEventHandler eventNode) {
+        eventNode.addListener(AsyncPlayerConfigurationEvent.class, this::onAsyncPlayerConfiguration);
+        eventNode.addListener(PlayerSpawnEvent.class, this::onPlayerSpawn);
     }
 
-    private void onResourcePack(Player player) {
-        ResourcePackRequest request = resourcepackService.getRequest().callback(((uuid, status, audience) ->  {
+    // 플레이어 비동기 로그인 이벤트 (로그인 핸드셰이크)
+    private void onAsyncPlayerConfiguration(AsyncPlayerConfigurationEvent event) {
+        InstanceContainer instanceContainer = worldService.createWorld("lobby");
+        event.setSpawningInstance(instanceContainer);
+        event.getPlayer().setRespawnPoint(new Pos(0, 42, 0));
+    }
+
+    // 플레이어 스폰 시 실행될 로직
+    private void onPlayerSpawn(PlayerSpawnEvent event) {
+        Player player = event.getPlayer();
+        player.sendMessage(Component.text("마인크래프트 유니버스에 오신 것을 환영합니다!", NamedTextColor.AQUA));
+
+        loadResourcePack(player);
+    }
+
+    private void loadResourcePack(Player player) {
+        ResourcePackRequest request = resourcepackService.getRequest().callback(((uuid, status, audience) -> {
             if (status == ResourcePackStatus.SUCCESSFULLY_LOADED) {
                 player.sendMessage(Component.text("✅ 리소스팩 로딩 완료!", NamedTextColor.GREEN));
             } else if (status == ResourcePackStatus.FAILED_DOWNLOAD || status == ResourcePackStatus.DECLINED) {

@@ -5,6 +5,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
 import org.mcuniverse.core.database.mongo.MongoConnect;
 import org.mcuniverse.core.database.redis.RedisConnect;
+import org.mcuniverse.scripts.event.MobCombatEvent;
 import org.mcuniverse.scripts.event.PingProtectEvent;
 import org.mcuniverse.scripts.event.PlayerJoinEvent;
 import org.mcuniverse.systems.entity.command.EntityCommand;
@@ -60,6 +61,7 @@ public final class Server {
     public void registerEvents() {
         GlobalEventHandler gh = MinecraftServer.getGlobalEventHandler();
         new PlayerJoinEvent(this.worldService, this.resourcepackService).register(gh);
+        new MobCombatEvent().register(gh);
         new PingProtectEvent().register(gh);
     }
 

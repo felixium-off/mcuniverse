@@ -13,7 +13,7 @@
   "skills": ["HUSTER_ATTACK_1"],
 
   "stats": {
-    "hp": 500,
+    "hp": 1,
     "damage": 25,
     "speed": 0.2
   },
