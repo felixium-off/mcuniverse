@@ -13,7 +13,7 @@ public class DamageFormula {
 
     public static float calculateDamage(CombatStats attacker, CombatStats defender) {
         // 물리 방어
-        float effectiveDefense = Math.max(0, defender.getDefense() - attacker.getDefense());
+        float effectiveDefense = Math.max(0, defender.getDefense());
         float physicalDamage = Math.max(0, attacker.getAttackDamage() - effectiveDefense);
 
         float finalDamage = physicalDamage;
