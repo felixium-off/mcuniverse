@@ -6,7 +6,7 @@ import org.mcuniverse.Server;
 import org.mcuniverse.systems.entity.data.MobDTO;
 import org.mcuniverse.systems.entity.model.BaseMob;
 import org.mcuniverse.systems.entity.model.BossMob;
-import org.mcuniverse.systems.entity.model.CommonMob;
+import org.mcuniverse.systems.entity.model.CustomMob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ public class MobService {
         if ("BOSS".equalsIgnoreCase(mob.getGroup())) {
             spawnEntity = new BossMob(mob);
         } else {
-            spawnEntity = new CommonMob(mob);
+            spawnEntity = new CustomMob(mob);
         }
 
         if (modifier != null)
