@@ -5,7 +5,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.dialog.DialogInput.Text;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
@@ -16,13 +15,15 @@ import net.minestom.server.entity.metadata.display.TextDisplayMeta;
 import net.minestom.server.event.entity.EntityAttackEvent;
 import net.minestom.server.event.entity.EntityDamageEvent;
 
-import net.minestom.server.event.entity.EntityDeathEvent;
 import net.minestom.server.network.packet.server.play.EntityAnimationPacket;
 import net.minestom.server.network.packet.server.play.ParticlePacket;
 import net.minestom.server.particle.Particle;
 import net.minestom.server.timer.TaskSchedule;
 
+import org.mcuniverse.systems.entity.combat.CombatStats;
+import org.mcuniverse.systems.entity.combat.DamageFormula;
 import org.mcuniverse.systems.entity.model.BaseMob;
+import org.mcuniverse.systems.entity.model.CustomPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,18 +47,23 @@ public class MobCombatEvent {
         var attacker = event.getEntity();
         var target = event.getTarget();
 
-        if (attacker instanceof Player player && target instanceof BaseMob mob) {
-            float ATTACK_DAMAGE = 5.0f;
+        // 플레이어가 몬스터를 공격할 때
+        if (attacker instanceof CustomPlayer player && target instanceof BaseMob mob) {
+            CombatStats attackerStats = CombatStats.fromPlayerStats(player.getStats());
+            CombatStats defenderStats = CombatStats.fromMobStats(mob.getMob().getStats());
 
-            Damage damage = new Damage(DamageType.MOB_ATTACK, mob, attacker, null, ATTACK_DAMAGE);
+            float calculateDamage = DamageFormula.calculateDamage(attackerStats, defenderStats);
+            Damage damage = new Damage(DamageType.MOB_ATTACK, mob, attacker, null, calculateDamage);
             mob.damage(damage);
         }
 
-        if (attacker instanceof BaseMob mob && target instanceof Player player) {
-            float ATTACK_DAMAGE = 5.0f;
+        // 몬스터가 플레이어를 공격할 때
+        if (attacker instanceof BaseMob mob && target instanceof CustomPlayer player) {
+            CombatStats attackerStats = CombatStats.fromMobStats(mob.getMob().getStats());
+            CombatStats defenderStats = CombatStats.fromPlayerStats(player.getStats());
 
-            Damage damage = new Damage(DamageType.MOB_ATTACK, mob, attacker, null, ATTACK_DAMAGE);
-            player.damage(damage);
+            float damage = DamageFormula.calculateDamage(attackerStats, defenderStats);
+            player.damage(new Damage(DamageType.MOB_ATTACK, mob, attacker, null, damage));
         }
     }
 
