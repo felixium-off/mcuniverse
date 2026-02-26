@@ -11,6 +11,7 @@ import org.mcuniverse.scripts.event.PlayerJoinEvent;
 import org.mcuniverse.systems.entity.command.EntityCommand;
 import org.mcuniverse.systems.entity.mob.MobManager;
 import org.mcuniverse.systems.entity.mob.MobService;
+import org.mcuniverse.systems.entity.model.CustomPlayer;
 import org.mcuniverse.systems.resourcepack.ResourcepackConfig;
 import org.mcuniverse.systems.resourcepack.ResourcepackService;
 import org.mcuniverse.systems.world.WorldService;
@@ -47,6 +48,8 @@ public final class Server {
         this.resourcepackService = new ResourcepackService(config);
         this.worldService = new WorldService();
         this.mobService = new MobService();
+
+        MinecraftServer.getConnectionManager().setPlayerProvider(CustomPlayer::new);
     }
 
     public void connectDB() {

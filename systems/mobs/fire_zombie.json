@@ -2,37 +2,62 @@
   "id": "fire_zombie",
   "display_name": "§c불타는 좀비",
   "bb_model": "resourcepack_custom_model",
-
   "monster_type": "ZOMBIE",
-  "equipment": { "helmet": "COMMAND_BLOCK", "main_hand": "NETHERITE_SWORD" },
-
+  "equipment": {
+    "helmet": "COMMAND_BLOCK",
+    "main_hand": "NETHERITE_SWORD"
+  },
   "group": "HUSTER",
-  "tags": ["UNDEAD", "FIRE_IMMUNE"],
-  "ai_type": "MELEE_CHASER",
-
-  "skills": ["HUSTER_ATTACK_1"],
-
+  "tags": [
+    "UNDEAD",
+    "FIRE_IMMUNE"
+  ],
+  "ai_type": "melee_chase",
+  "skills": [
+    "HUSTER_ATTACK_1"
+  ],
   "stats": {
-    "hp": 1,
-    "damage": 25,
-    "speed": 0.2
+    "hp": 25,
+    "attack_damage": 1,
+    "movement_speed": 0.05
   },
-
   "sounds": {
-    "ambient": { "sound": "minecraft_sound", "volume": 1.0, "pitch": 1.0 },
-    "damaged": { "sound": "minecraft_sound", "volume": 1.0, "pitch": 1.0 },
-    "death": { "sound": "minecraft_sound", "volume": 1.0, "pitch": 1.0 }
+    "ambient": {
+      "sound": "minecraft_sound",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    "damaged": {
+      "sound": "minecraft_sound",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    "death": {
+      "sound": "minecraft_sound",
+      "volume": 1.0,
+      "pitch": 1.0
+    }
   },
-
   "death_effect": "minecraft_effect",
-
   "rewards": {
-    "exp": { "min": 10, "max": 20 },
+    "exp": {
+      "min": 10,
+      "max": 20
+    },
     "drops": [
-      { "item": "BREAD", "min": 1, "max": 1, "chance": 0.4 },
-      { "item": "COIN", "min": 50, "max": 150, "chance": 1.0 }
+      {
+        "item": "BREAD",
+        "min": 1,
+        "max": 1,
+        "chance": 0.4
+      },
+      {
+        "item": "COIN",
+        "min": 50,
+        "max": 150,
+        "chance": 1.0
+      }
     ]
   },
-
   "script_hook": null
 }

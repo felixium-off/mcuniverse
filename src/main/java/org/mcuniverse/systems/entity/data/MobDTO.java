@@ -43,11 +43,10 @@ public class MobDTO {
     public static class MobStats {
         private int hp;
         private int attackDamage;
+        private float critRate;
+        private float critMultiplier;
+        private float defense;
         private double movementSpeed;
-        private int knockbackResistance;
-        private int fireResistance;
-        private int waterResistance;
-        private int fallResistance;
     }
 
     @Getter
