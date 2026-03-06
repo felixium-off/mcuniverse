@@ -3,15 +3,24 @@ package org.mcuniverse;
 import lombok.extern.slf4j.Slf4j;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
-import org.mcuniverse.core.database.mongo.MongoConnect;
+import net.minestom.server.event.player.PlayerEntityInteractEvent;
+import net.minestom.server.timer.TaskSchedule;
+
+import java.time.Duration;
+
+import org.mcuniverse.core.database.postgre.PostgreConnect;
 import org.mcuniverse.core.database.redis.RedisConnect;
+import org.mcuniverse.scripts.command.GamemodeCommand;
 import org.mcuniverse.scripts.event.MobCombatEvent;
 import org.mcuniverse.scripts.event.PingProtectEvent;
 import org.mcuniverse.scripts.event.PlayerJoinEvent;
 import org.mcuniverse.systems.entity.command.EntityCommand;
+import org.mcuniverse.systems.entity.handler.AnimalSpawnHandler;
+import org.mcuniverse.systems.entity.handler.FarmAnimalInteractHandler;
 import org.mcuniverse.systems.entity.mob.MobManager;
 import org.mcuniverse.systems.entity.mob.MobService;
 import org.mcuniverse.systems.entity.model.CustomPlayer;
+import org.mcuniverse.systems.entity.tag.AnimalTags;
 import org.mcuniverse.systems.resourcepack.ResourcepackConfig;
 import org.mcuniverse.systems.resourcepack.ResourcepackService;
 import org.mcuniverse.systems.world.WorldService;
@@ -34,6 +43,7 @@ public final class Server {
         this.registerCommands();
         this.registerEvents();
         this.registerFeatures();
+        this.registerAnimalsHandler();
         this.registerShutdownHook();
         minecraftServer.start("0.0.0.0", 25565);
     }
@@ -53,11 +63,12 @@ public final class Server {
     }
 
     public void connectDB() {
-        MongoConnect.getInstance().connect();
+        PostgreConnect.getInstance().connect();
         RedisConnect.getInstance().connect();
     }
 
     public void registerCommands() {
+        MinecraftServer.getCommandManager().register(new GamemodeCommand());
         MinecraftServer.getCommandManager().register(new EntityCommand(mobService));
     }
 
@@ -75,9 +86,29 @@ public final class Server {
     public void registerShutdownHook() {
         MinecraftServer.getSchedulerManager().buildShutdownTask(() -> {
 
-            MongoConnect.getInstance().disconnect();
+            PostgreConnect.getInstance().disconnect();
             RedisConnect.getInstance().disconnect();
             log.debug("서버가 안전하게 종료되었습니다.");
         });
     }
+
+    public void registerAnimalsHandler() {
+        FarmAnimalInteractHandler farmHandler = new FarmAnimalInteractHandler();
+        AnimalSpawnHandler spawnHandler = new AnimalSpawnHandler();
+
+        GlobalEventHandler events = MinecraftServer.getGlobalEventHandler();
+
+        events.addListener(PlayerEntityInteractEvent.class, farmHandler::onInteract);
+        events.addListener(PlayerEntityInteractEvent.class, spawnHandler::onEntityInteract);
+
+        MinecraftServer.getSchedulerManager().scheduleTask(() -> {
+            MinecraftServer.getInstanceManager().getInstances()
+                    .forEach(instance -> instance.getEntities().forEach(entity -> {
+                        if (entity.getTag(AnimalTags.STACK_SIZE) > 0) {
+                            entity.setTag(AnimalTags.FED_COUNT, 0);
+                        }
+                    }));
+        }, TaskSchedule.nextTick(), TaskSchedule.duration(Duration.ofHours(24)));
+    }
+
 }

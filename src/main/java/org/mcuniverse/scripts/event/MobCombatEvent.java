@@ -72,9 +72,9 @@ public class MobCombatEvent {
         var victim = event.getEntity();
         float incomingDamage = event.getDamage().getAmount();
 
-        showDamageIndicator(victim, incomingDamage);
-
         if (victim instanceof BaseMob mob) { // 몬스터가 맞았을 때
+            showDamageIndicator(victim, incomingDamage);
+
             if ((mob.getHealth() - incomingDamage) <= 0) {
                 onMobKilled(mob);
             }
@@ -82,7 +82,9 @@ public class MobCombatEvent {
             player.sendPacket(
                     new EntityAnimationPacket(player.getEntityId(),
                             EntityAnimationPacket.Animation.TAKE_DAMAGE));
-            player.sendMessage(incomingDamage + "데미지" + victim.getHealth() + "hp");
+            player.sendMessage(Component.text(
+                    String.format("%.1f 데미지  HP: %.1f", incomingDamage, victim.getHealth()))
+                    .color(NamedTextColor.RED));
         }
     }
 
@@ -105,7 +107,7 @@ public class MobCombatEvent {
         double offsetX = (random.nextDouble() - 0.5) * 1.5;
         double offsetZ = (random.nextDouble() - 0.5) * 1.5;
 
-        Pos displayPos = victim.getPosition().add(offsetX, 1.3, offsetZ);
+        Pos displayPos = victim.getPosition().add(offsetX, 2, offsetZ);
         indicator.setInstance(victim.getInstance(), displayPos);
 
         MinecraftServer.getSchedulerManager().buildTask(indicator::remove)

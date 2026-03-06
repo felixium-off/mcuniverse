@@ -1,6 +1,7 @@
 package org.mcuniverse.systems.entity.data;
 
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -19,6 +20,7 @@ public class MobDTO {
     private String group;
     private List<String> tags;
     private String aiType;
+    private Map<String, Object> aiOptions;
 
     // 중첩 객체
     private MobEquipment equipment;
@@ -84,7 +86,8 @@ public class MobDTO {
         @Getter
         public static class MobDrops {
             private String item;
-            private int amount;
+            private int min;
+            private int max;
             private double chance;
         }
     }
