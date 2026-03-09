@@ -53,10 +53,9 @@ public class GarbageEntityCleaner {
         }
 
         if (entity.getEntityType() == EntityType.TEXT_DISPLAY) {
-            return false;
+            long aliveMillis = entity.getAliveTicks() * 50L;
+            return aliveMillis > 5000;
         }
-
-        long aliveMillis = System.currentTimeMillis() - entity.getAliveTicks() * 50L;
-        return aliveMillis > 5000;
+        return false;
     }
 }

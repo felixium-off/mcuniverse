@@ -4,8 +4,12 @@
   "bb_model": "resourcepack_custom_model",
   "monster_type": "ZOMBIE",
   "equipment": {
-    "helmet": "COMMAND_BLOCK",
-    "main_hand": "NETHERITE_SWORD"
+    "helmet": "NETHERITE_HELMET",
+    "chestplate": "NETHERITE_CHESTPLATE",
+    "leggings": "NETHERITE_LEGGINGS",
+    "boots": "NETHERITE_BOOTS",
+    "main_hand": "NETHERITE_SWORD",
+    "off_hand": "NETHERITE_HOE"
   },
   "group": "HUSTER",
   "tags": [
@@ -13,6 +17,11 @@
     "FIRE_IMMUNE"
   ],
   "ai_type": "melee_chase",
+  "ai_options": {
+    "attack_range": 1.6,
+    "attack_delay": 500,
+    "stroll_radius": 10
+  },
   "skills": [
     "HUSTER_ATTACK_1"
   ],

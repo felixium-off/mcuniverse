@@ -3,7 +3,6 @@ package org.mcuniverse.systems.entity.command;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
 import org.mcuniverse.systems.entity.mob.MobService;
 import org.mcuniverse.systems.entity.model.BaseMob;

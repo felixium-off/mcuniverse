@@ -30,10 +30,16 @@ dependencies {
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     implementation("ch.qos.logback:logback-classic:1.5.26")
 
-    // MongoDB 및 Redis
-    implementation(platform("org.mongodb:mongodb-driver-bom:5.6.2"))
-    implementation("org.mongodb:mongodb-driver-sync")
+    // PostgreSQL JDBC Driver (https://mvnrepository.com/artifact/org.postgresql/postgresql)
+    implementation("org.postgresql:postgresql:42.7.10")
+    
+    // HikariCP (고성능 커넥션 풀) (https://github.com/brettwooldridge/HikariCP)
+    implementation("com.zaxxer:HikariCP:7.0.2")
+
+    // Redis
     implementation("io.lettuce:lettuce-core:6.7.1.RELEASE")
+    
+    // YAML
     implementation("org.yaml:snakeyaml:2.2")
 
     // Polar world format
@@ -47,9 +53,6 @@ dependencies {
 
     // Gson for JSON parsing
     implementation("com.google.code.gson:gson:2.10.1")
-
-    // Lamp
-    implementation("net.kyori:adventure-text-minimessage:4.26.1")
 
     // Logging
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
@@ -65,12 +68,13 @@ dependencies {
     // https://github.com/ben-manes/caffeine
     implementation("com.github.ben-manes.caffeine:caffeine:3.2.3")
 
-    // dotenv
-    implementation("io.github.cdimascio:dotenv-java:3.2.0")
-
     // Micrometer 코어 및 프로메테우스 연동 모듈
     implementation("io.micrometer:micrometer-core:1.12.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.12.0")
+
+    // dotenv-java (프로덕트 환경에서는 System.getenv() 를 사용할 것
+    // https://github.com/cdimascio/dotenv-java
+    implementation("io.github.cdimascio:dotenv-java:3.2.0")
 }
 
 configurations.all {

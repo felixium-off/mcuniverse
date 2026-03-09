@@ -3,7 +3,6 @@ package org.mcuniverse.systems.entity.model;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
-import net.minestom.server.entity.attribute.Attribute;
 import net.minestom.server.event.entity.EntityDamageEvent;
 import org.mcuniverse.systems.entity.data.MobDTO;
 
