@@ -1,5 +1,7 @@
 package org.mcuniverse.systems.entity.model;
 
+import java.util.function.Consumer;
+
 import org.mcuniverse.systems.entity.ai.behavior.registry.BehaviorRegistry;
 import org.mcuniverse.systems.entity.data.MobDTO;
 
@@ -15,34 +17,21 @@ public class CustomMob extends BaseMob {
     }
 
     private void applyEquip() {
-        MobDTO.MobEquipment eq = getMob().getEquipment();
+        var eq = getMob().getEquipment();
         if (eq == null)
             return;
-        if (eq.getMainHand() != null) {
-            Material m = Material.fromKey("minecraft:" + eq.getMainHand().toLowerCase());
-            if (m != null)
-                setItemInMainHand(ItemStack.of(m));
-        }
-        if (eq.getHelmet() != null) {
-            Material m = Material.fromKey("minecraft:" + eq.getHelmet().toLowerCase());
-            if (m != null)
-                setHelmet(ItemStack.of(m));
-        }
-        if (eq.getChestplate() != null) {
-            Material m = Material.fromKey("minecraft:" + eq.getChestplate().toLowerCase());
-            if (m != null)
-                setChestplate(ItemStack.of(m));
-        }
-        if (eq.getLeggings() != null) {
-            Material m = Material.fromKey("minecraft:" + eq.getLeggings().toLowerCase());
-            if (m != null)
-                setLeggings(ItemStack.of(m));
-        }
-        if (eq.getBoots() != null) {
-            Material m = Material.fromKey("minecraft:" + eq.getBoots().toLowerCase());
-            if (m != null)
-                setBoots(ItemStack.of(m));
-        }
+
+        applySlot(eq.getMainHand(), this::setItemInMainHand);
+        applySlot(eq.getHelmet(), this::setHelmet);
+        applySlot(eq.getChestplate(), this::setChestplate);
+        applySlot(eq.getLeggings(), this::setLeggings);
+        applySlot(eq.getBoots(), this::setBoots);
+    }
+
+    private void applySlot(String name, Consumer<ItemStack> setter) {
+        var material = Material.fromKey("minecraft:" + name.toLowerCase());
+        if (material != null)
+            setter.accept(ItemStack.of(material));
     }
 
     private void applySimpleAI() {
